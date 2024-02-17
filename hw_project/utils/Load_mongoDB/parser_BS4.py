@@ -74,6 +74,21 @@ def parser_author(session, author_list, url):
         "description": soup.select_one("div.author-description").text})
     write_to_file(r"Json\authors.json", authors_data)
 
+def file_check():
+    file_names = [r"Json\quotes.json", r"Json\authors.json"]
+    count = 0
+    try:
+        for file_name in file_names:
+            with open(file_name, "r", encoding="utf-8") as file:
+                old_data = json.load(file)
+            if len(old_data) > 0:
+                count += 1
+        return True if count == 2 else False
+    except FileNotFoundError as err:
+        print(err)
+        return False
+
+
 def main():
     url = "https://quotes.toscrape.com/"
     login_url = get_url_login(url)
@@ -86,10 +101,12 @@ def main():
             parser_quote(session=session, url=url)
             parser_author(session=session, author_list=author_list, url=url)
             session.close()
-            break
+            return file_check()
         else:
             print("Failed to authorize.")
+            break
 
-if __name__ == "__main__":
-    main()
-    print("OK")
+# if __name__ == "__main__":
+#     result = main()
+#     # result = file_check()
+#     print(f"{result}")

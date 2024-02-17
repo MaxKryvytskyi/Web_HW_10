@@ -29,6 +29,6 @@ def main():
                            goodreads_page = quote_data["goodreads_page"])
             quote.save()
         
-if __name__ == "__main__":
-    main()
-    print("OK")
+# if __name__ == "__main__":
+#     main()
+#     print("OK")

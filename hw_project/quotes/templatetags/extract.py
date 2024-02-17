@@ -15,4 +15,8 @@ def get_author(id_):
     # logging.debug(f"{author.fullname}")
     return author.fullname
 
+def get_top_ten_tags(quotes):
+    pass
+
+register.filter("quotes", get_top_ten_tags)
 register.filter("author", get_author)

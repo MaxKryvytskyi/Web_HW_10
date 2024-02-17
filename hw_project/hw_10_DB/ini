@@ -1,0 +1,1 @@
+docker run --name hw_10_DB -e POSTGRES_PASSWORD=qwerty -p 5433:5432 -d -v E:\Git_Files\__Python_GOIT__\__Web_2_0__\Web_HW_10\hw_project\hw_10_DB\data:/var/lib/postgresql/data postgres
