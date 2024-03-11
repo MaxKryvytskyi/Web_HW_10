@@ -1,5 +1,5 @@
 a {
-    color: #09fa05;
+    color: #3205fa;
     text-decoration: none;
 }
 
@@ -20,7 +20,7 @@ a {
 
 .quote small.author {
     font-weight: bold;
-    color: #09fa05;
+    color: #3205fa;
 }
 
 .quote .tags {
@@ -32,7 +32,7 @@ a {
     border-radius: 5px;
     color: rgb(0, 0, 0);
     font-size: small;
-    background-color: #09fa05;
+    background-color: #3205fa;
 }
 .pager {
     font-family: "Raleway","Helvetica Neue",Helvetica,Arial,sans-serif;

@@ -20,9 +20,13 @@
             </div>
             <div class="col-md-4">
                 <p>
-                    <a href="/users/signup" class="btn btn-outline-success">SignUP</a>
+                    <a href="{% url 'users:signup' %}" class="btn btn-outline-success">SignUP</a>
+                    <a href="{% url 'users:login' %}" class="btn btn-outline-success">Login</a>
+                    <a href="{% url 'users:logout' %}" class="btn btn-outline-danger">Logout</a>
+
+                    <!-- <a href="/users/signup" class="btn btn-outline-success">SignUP</a>
                     <a href="/users/login" class="btn btn-outline-success">Login</a>
-                    <a href="/users/logout" class="btn btn-outline-danger">Logout</a>
+                    <a href="/users/logout" class="btn btn-outline-danger">Logout</a> -->
                 </p>
             </div>
         </div>

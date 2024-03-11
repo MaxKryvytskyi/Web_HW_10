@@ -2,6 +2,7 @@
 name = "web-hw-10"
 version = "0.1.0"
 description = ""
+package-mode = false
 authors = ["Max <maxkryvytskyiwork@gmail.com>"]
 readme = "README.md"
 
