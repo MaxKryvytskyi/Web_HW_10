@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator
 from .utils import connect, Quotes, Authors
-from quotes.models import Tag, Quote
+from quotes.models import Tag, Quote, Author
 
 
 
@@ -13,7 +13,11 @@ def main(request, page=1):
     return render(request, "quotes/index.html", context={"quotes": quotes_on_page})
 
 def author(request, author_id):
-    author_info = Authors.objects.get(id=author_id)
+    # из-за 2 баз даних 
+    try:
+        author_info = Authors.objects.get(id=author_id) # mongoDB
+    except Exception as er:
+        author_info = Author.objects.get(id=author_id) # posgreSQL
     return render(request, "quotes/author.html", context={"author": author_info})
 
 def tag_search(request, tag):
@@ -23,6 +27,7 @@ def tag_search(request, tag):
     # join public.quotes_quote qq on qq.id = qqt.quote_id 
     # WHERE qt.name = 'love';
     # --Запрос на поиск цитат за тегом
+    
     quotes_id = Tag.objects.filter(name=tag).values('name', 'quote__id')
     quotes = []
     for item in quotes_id:
@@ -32,7 +37,6 @@ def tag_search(request, tag):
         for tag_id in data:
             tag_name = Tag.objects.filter(id=tag_id["tag_id"]).values('name')
             tag_name = list(tag_name.values_list('name', flat=True))
-            print(tag_name)
             tags.append(*tag_name)
 
         quotes.append({"id" : quote.id,
@@ -40,12 +44,4 @@ def tag_search(request, tag):
                        "tags" : tags,
                        "author" : { "fullname" : quote.author.fullname, "id" : quote.author.id},
                        "goodreads_page" : quote.goodreads_page})  
-    # print(quotes)
-    for quote in quotes:
-        print("_"*100)
-        print(quote["quote"])
-        print(quote["tags"])
-        print(quote["author"])
-        print(quote["goodreads_page"])
-        print("_"*100)
     return render(request, "quotes/tag_search.html", context={"quotes": quotes})
