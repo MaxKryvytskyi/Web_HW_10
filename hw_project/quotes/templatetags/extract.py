@@ -19,8 +19,8 @@ def get_top_ten_tags(quotes):
     top_tags = Tag.objects.annotate(quote_count=Count('quote')).order_by('-quote_count')[:10]
     return top_tags
 
-def get_author_details(author):
-    return 
+
+
 
 register.filter("tags", get_top_ten_tags)
 register.filter("author", get_author)

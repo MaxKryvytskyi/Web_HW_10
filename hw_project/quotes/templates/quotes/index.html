@@ -9,15 +9,15 @@
         <div class="quote" itemscope="" itemtype="http://schema.org/CreativeWork">
             <span class="text" itemprop="text">{{quote.quote}}</span>
             <span>by <small class="author" itemprop="author">{{quote.author|author}}</small>
-        <a href="/author/{{quote.author}}">(about)</a>
-
+        <a href="/author/{{quote.author.id}}">(about)</a>
+        
+        {% if user.is_authenticated %}
         <a href="{{quote.goodreads_page}}">Goodreads page</a>
+        {% endif %}
         
         </span>
         <div class="tags">
             Tags:
-            <!-- <meta class="keywords" itemprop="keywords" content="change,deep-thoughts,thinking,world"> 
-             -->
             {% for tag in quote.tags %}
             <a class="tag" href="/tag/{{tag}}">{{tag}}</a>
             {% endfor %}

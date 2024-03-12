@@ -18,7 +18,7 @@ for author in authors:
             born_date = author.born_date,
             born_location = author.born_location,
             description = author.description)
-    
+            
 
 quotes = Quotes.objects()
 
