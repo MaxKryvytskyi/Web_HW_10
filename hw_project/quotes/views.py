@@ -27,7 +27,7 @@ def tag_search(request, tag):
     # join public.quotes_quote qq on qq.id = qqt.quote_id 
     # WHERE qt.name = 'love';
     # --Запрос на поиск цитат за тегом
-    
+    tags_search = tag
     quotes_id = Tag.objects.filter(name=tag).values('name', 'quote__id')
     quotes = []
     for item in quotes_id:
@@ -44,4 +44,10 @@ def tag_search(request, tag):
                        "tags" : tags,
                        "author" : { "fullname" : quote.author.fullname, "id" : quote.author.id},
                        "goodreads_page" : quote.goodreads_page})  
-    return render(request, "quotes/tag_search.html", context={"quotes": quotes})
+    return render(request, "quotes/tag_search.html", context={"quotes": quotes, "tags_search": tags_search})
+
+def create_author(request):
+    return render(request, "quotes\create_author.html")
+
+def create_quote(request):
+    return render(request, "quotes\create_quote.html")

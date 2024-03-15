@@ -3,8 +3,11 @@
 
 {% block content %}
 
+
+
 <div class="row">
     <div class="col-md-8">
+        <h3>Viewing tag: <a href="/tag/{{tags_search}}">{{tags_search}}</a></h3>
         {% for quote in quotes %}
         <div class="quote" itemscope="" itemtype="http://schema.org/CreativeWork">
             <span class="text" itemprop="text">{{quote.quote}}</span>
