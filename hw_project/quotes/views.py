@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.core.paginator import Paginator
 from .utils import connect, Quotes, Authors
 from quotes.models import Tag, Quote, Author
-
+from .forms import AuthorForm
 
 
 def main(request, page=1):
@@ -47,7 +47,7 @@ def tag_search(request, tag):
     return render(request, "quotes/tag_search.html", context={"quotes": quotes, "tags_search": tags_search})
 
 def create_author(request):
-    return render(request, "quotes\create_author.html")
+    return render(request, "quotes\create_author.html", {'form' : AuthorForm})
 
 def create_quote(request):
     return render(request, "quotes\create_quote.html")

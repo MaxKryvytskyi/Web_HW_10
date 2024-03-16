@@ -1,3 +1,26 @@
+/* Пример стилей для поля ввода fullname */
+input#form-group {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+/* Стили для фокуса на поле ввода */
+input#form-group:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px #007bff;
+}
+
+
+
+
+
+
 a {
     color: #7CA3E6;
     text-decoration: none;
