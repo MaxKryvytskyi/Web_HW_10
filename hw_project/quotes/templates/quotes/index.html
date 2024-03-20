@@ -12,7 +12,9 @@
         <a href="/author/{{quote.author.id}}">(about)</a>
         
         {% if user.is_authenticated %}
-        <a href="{{quote.goodreads_page}}">Goodreads page</a>
+            {% if quote.goodreads_page %}
+            <a href="{{quote.goodreads_page}}">Goodreads page</a>
+            {% endif %}
         {% endif %}
         
         </span>

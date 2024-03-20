@@ -19,12 +19,17 @@ class TagForm(forms.ModelForm):
         fields = ['name']
 
 class QuoteForm(forms.ModelForm):
+    
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        self.fields["author"].empty_label = "Author not selected"
 
-    quote = forms.CharField(widget=forms.Textarea(attrs={'rows': 3}))
-    tags = forms.ModelMultipleChoiceField(queryset=Tag.objects.all(), required=False)
-    author = forms.ModelChoiceField(queryset=Author.objects.all(), required=False)
+    quote = forms.CharField(widget=forms.Textarea(attrs={'rows': 10, 'cols' : 60}))
+    tags = forms.ModelMultipleChoiceField(queryset=Tag.objects.all().order_by('name'), required=False, widget=forms.SelectMultiple(attrs={'size': 10}))
+    author = forms.ModelChoiceField(queryset=Author.objects.all(), required=True)
     goodreads_page = forms.URLField(max_length=200, required=False)
 
     class Meta:
         model = Quote
         fields = ['quote', 'tags', 'author', 'goodreads_page']
+

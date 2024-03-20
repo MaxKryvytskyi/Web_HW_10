@@ -7,6 +7,9 @@ input#form-group {
     border: 1px solid #ccc;
     box-sizing: border-box;
     margin-bottom: 10px;
+    color: rgb(255, 255, 255);
+    font-size: small;
+    background-color: #7CA3E6;
 }
 
 /* Стили для фокуса на поле ввода */
@@ -16,7 +19,18 @@ input#form-group:focus {
     box-shadow: 0 0 5px #007bff;
 }
 
-
+.form-select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    color: rgb(255, 255, 255);
+    font-size: small;
+    background-color: #7CA3E6;
+}
 
 
 

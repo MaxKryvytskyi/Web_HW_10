@@ -58,15 +58,23 @@ def create_author(request):
 
 
 def create_quote(request):
+    tagss = Tag.objects.all().order_by('name')
+
     if request.method == "POST":
         form = QuoteForm(request.POST)
+
         if form.is_valid():
+            print(form.cleaned_data['author'])
+            print(form.cleaned_data['quote'])
+            print(form.cleaned_data['tags'])
+            print(form.cleaned_data['goodreads_page'])
             form.save()
             return redirect(to="quotes:root")
         else:
-            return render(request, "quotes\create_quote.html", {'form' : form})
+
+            return render(request, "quotes\create_quote.html", {'form' : form, "tagss" : tagss})
         
-    return render(request, "quotes\create_quote.html", {'form' : QuoteForm})
+    return render(request, "quotes\create_quote.html", {'form' : QuoteForm, "tagss" : tagss})
 
 
 def create_tag(request):
