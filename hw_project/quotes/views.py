@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
 from quotes.models import Tag, Quote, Author
-from .forms import AuthorForm, QuoteForm
+from .forms import AuthorForm, QuoteForm, TagForm
 
 
 def main(request, page=1):
@@ -49,7 +49,6 @@ def create_author(request):
     if request.method == "POST":
         form = AuthorForm(request.POST)
         if form.is_valid():
-            print("_"*100)
             form.save()
             return redirect(to="quotes:root")
         else:
@@ -62,10 +61,21 @@ def create_quote(request):
     if request.method == "POST":
         form = QuoteForm(request.POST)
         if form.is_valid():
-            print("_"*100)
             form.save()
             return redirect(to="quotes:root")
         else:
             return render(request, "quotes\create_quote.html", {'form' : form})
         
     return render(request, "quotes\create_quote.html", {'form' : QuoteForm})
+
+
+def create_tag(request):
+    if request.method == "POST":
+        form = TagForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(to="quotes:root")
+        else:
+            return render(request, "quotes\create_tag.html", {'form' : form})
+        
+    return render(request, "quotes\create_tag.html", {'form' : TagForm})

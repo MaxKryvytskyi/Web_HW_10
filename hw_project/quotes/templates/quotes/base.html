@@ -22,6 +22,7 @@
                 <p>
                     {% if user.is_authenticated %} 
                     <a href="{% url 'quotes:create_quote' %}" class="btn btn-primary">Create quote</a>
+                    <a href="{% url 'quotes:create_tag' %}" class="btn btn-primary">Create tag</a>
                     <a href="{% url 'quotes:create_author' %}" class="btn btn-primary">Create author</a>
 
                     <a href="{% url 'users:logout' %}" class="btn btn-outline-danger">Logout</a>

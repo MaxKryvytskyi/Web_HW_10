@@ -12,11 +12,11 @@ class AuthorForm(forms.ModelForm):
         model = Author
         fields = ['fullname', 'born_date', 'born_location', 'description']
 
-# class TagForm(forms.ModelForm):
-#     name = forms.CharField(max_length=40, null=False, unique=True)
-    # class Meta:
-    #     model = Tag
-    #     fields = ['name']
+class TagForm(forms.ModelForm):
+    name = forms.CharField(max_length=50, required=True, widget=forms.TextInput())
+    class Meta:
+        model = Tag
+        fields = ['name']
 
 class QuoteForm(forms.ModelForm):
 
