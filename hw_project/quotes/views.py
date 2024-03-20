@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
-# from .utils import connect, Quotes, Authors
 from quotes.models import Tag, Quote, Author
 from .forms import AuthorForm, QuoteForm
 
@@ -12,9 +11,11 @@ def main(request, page=1):
     quotes_on_page = paginator.page(page)
     return render(request, "quotes/index.html", context={"quotes": quotes_on_page})
 
+
 def author(request, author_id):
     author_info = Author.objects.get(id=author_id)
     return render(request, "quotes/author.html", context={"author": author_info})
+
 
 def tag_search(request, tag):
     # select qt.name, qqt.quote_id 
@@ -22,7 +23,7 @@ def tag_search(request, tag):
     # join public.quotes_quote_tags qqt on qqt.tag_id = qt.id 
     # join public.quotes_quote qq on qq.id = qqt.quote_id 
     # WHERE qt.name = 'love';
-    
+
     # --Запрос на поиск цитат за тегом
     tags_search = tag
     quotes_id = Tag.objects.filter(name=tag).values('name', 'quote__id')
@@ -43,6 +44,7 @@ def tag_search(request, tag):
                        "goodreads_page" : quote.goodreads_page})  
     return render(request, "quotes/tag_search.html", context={"quotes": quotes, "tags_search": tags_search})
 
+
 def create_author(request):
     if request.method == "POST":
         form = AuthorForm(request.POST)
@@ -54,6 +56,7 @@ def create_author(request):
             return render(request, "quotes\create_author.html", {'form' : form})
         
     return render(request, "quotes\create_author.html", {'form' : AuthorForm})
+
 
 def create_quote(request):
     if request.method == "POST":

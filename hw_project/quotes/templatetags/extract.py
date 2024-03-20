@@ -1,15 +1,10 @@
-from bson import ObjectId
 from django import template
-from ..utils import connect, Authors, Quotes
-from ..models import Author
-from quotes.models import Tag, Author, Quote
+from quotes.models import Tag, Author
 from django.db.models import Count 
+
 register = template.Library()
 
 def get_author(id_):
-    print("_"*100)
-    print(id_)
-    print("_"*100)
     author = Author.objects.get(id=id_)
     return author.fullname
 
@@ -22,8 +17,6 @@ def get_top_ten_tags(_):
     # Запрос на топ 10 тегов
     top_tags = Tag.objects.annotate(quote_count=Count('quote')).order_by('-quote_count')[:10]
     return top_tags
-
-
 
 
 register.filter("tags", get_top_ten_tags)
