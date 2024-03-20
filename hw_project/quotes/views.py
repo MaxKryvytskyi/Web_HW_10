@@ -1,23 +1,19 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
-from .utils import connect, Quotes, Authors
+# from .utils import connect, Quotes, Authors
 from quotes.models import Tag, Quote, Author
-from .forms import AuthorForm
+from .forms import AuthorForm, QuoteForm
 
 
 def main(request, page=1):
-    quotes = Quotes.objects()
+    quotes = Quote.objects.all()
     per_page = 10
     paginator = Paginator(list(quotes), per_page)
     quotes_on_page = paginator.page(page)
     return render(request, "quotes/index.html", context={"quotes": quotes_on_page})
 
 def author(request, author_id):
-    # из-за 2 баз даних 
-    try:
-        author_info = Authors.objects.get(id=author_id) # mongoDB
-    except Exception as er:
-        author_info = Author.objects.get(id=author_id) # posgreSQL
+    author_info = Author.objects.get(id=author_id)
     return render(request, "quotes/author.html", context={"author": author_info})
 
 def tag_search(request, tag):
@@ -26,6 +22,7 @@ def tag_search(request, tag):
     # join public.quotes_quote_tags qqt on qqt.tag_id = qt.id 
     # join public.quotes_quote qq on qq.id = qqt.quote_id 
     # WHERE qt.name = 'love';
+    
     # --Запрос на поиск цитат за тегом
     tags_search = tag
     quotes_id = Tag.objects.filter(name=tag).values('name', 'quote__id')
@@ -47,7 +44,25 @@ def tag_search(request, tag):
     return render(request, "quotes/tag_search.html", context={"quotes": quotes, "tags_search": tags_search})
 
 def create_author(request):
+    if request.method == "POST":
+        form = AuthorForm(request.POST)
+        if form.is_valid():
+            print("_"*100)
+            form.save()
+            return redirect(to="quotes:root")
+        else:
+            return render(request, "quotes\create_author.html", {'form' : form})
+        
     return render(request, "quotes\create_author.html", {'form' : AuthorForm})
 
 def create_quote(request):
-    return render(request, "quotes\create_quote.html")
+    if request.method == "POST":
+        form = QuoteForm(request.POST)
+        if form.is_valid():
+            print("_"*100)
+            form.save()
+            return redirect(to="quotes:root")
+        else:
+            return render(request, "quotes\create_quote.html", {'form' : form})
+        
+    return render(request, "quotes\create_quote.html", {'form' : QuoteForm})

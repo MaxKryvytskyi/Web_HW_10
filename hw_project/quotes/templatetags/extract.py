@@ -1,15 +1,19 @@
 from bson import ObjectId
 from django import template
 from ..utils import connect, Authors, Quotes
-from quotes.models import Tag
+from ..models import Author
+from quotes.models import Tag, Author, Quote
 from django.db.models import Count 
 register = template.Library()
 
 def get_author(id_):
-    author = Authors.objects(id=ObjectId(id_.id)).first()
+    print("_"*100)
+    print(id_)
+    print("_"*100)
+    author = Author.objects.get(id=id_)
     return author.fullname
 
-def get_top_ten_tags(quotes):
+def get_top_ten_tags(_):
     # select tag_id, count(*), qt.name
     # FROM public.quotes_quote_tags
     # join public.quotes_tag as qt on qt.id = tag_id 
