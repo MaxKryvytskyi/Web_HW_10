@@ -1,4 +1,9 @@
 # Міграція з mongoDB в posgresql
+
+import sys
+
+sys.path.append("E:\Git_Files\__Python_GOIT__\__Web_2_0__\Web_HW_10\hw_project")
+
 import os 
 import django
 
@@ -7,8 +12,11 @@ django.setup()
 
 from quotes.models import Quote, Tag, Author # posgresql
 
-from ..Load_mongoDB.connect_db import connect # mongoDB
-from ..Load_mongoDB.models import Authors, Quotes # mongoDB
+from utils.Load_mongoDB.connect_db import connect # mongoDB
+from utils.Load_mongoDB.models import Authors, Quotes # mongoDB
+
+print("start")
+
 
 authors = Authors.objects()
 
@@ -39,3 +47,7 @@ for quote in quotes:
         )
         for tag in tags:
             q.tags.add(tag)
+
+print("stop")
+
+# py utils\Migration\migration.py migration.py

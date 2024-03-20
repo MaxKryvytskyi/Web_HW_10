@@ -26,7 +26,7 @@ class QuoteForm(forms.ModelForm):
 
     quote = forms.CharField(widget=forms.Textarea(attrs={'rows': 10, 'cols' : 60}))
     tags = forms.ModelMultipleChoiceField(queryset=Tag.objects.all().order_by('name'), required=False, widget=forms.SelectMultiple(attrs={'size': 10}))
-    author = forms.ModelChoiceField(queryset=Author.objects.all(), required=True)
+    author = forms.ModelChoiceField(queryset=Author.objects.all().order_by('fullname'), required=True)
     goodreads_page = forms.URLField(max_length=200, required=False)
 
     class Meta:
